@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "152071252012",
+    "firebase_url": "https://gestion-prospect.firebaseio.com",
+    "project_id": "gestion-prospect",
+    "storage_bucket": "gestion-prospect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152071252012:android:b4bc35b2c3dbd8adc94989",
+        "android_client_info": {
+          "package_name": "com.example.gestion_prospect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152071252012-599heldaaj4u9r9j9qlc7kkbjdj53qph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCP_6xYuI2PTPrxxm6e5B5iEwvaavQm-AQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152071252012-599heldaaj4u9r9j9qlc7kkbjdj53qph.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
