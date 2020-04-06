@@ -7,6 +7,9 @@ class DatabaseService{
 
   //collection reference
   final CollectionReference prospectCollection = Firestore.instance.collection('prospect');
+ // final CollectionReference locationCollection = Firestore.instance.collection('location');
+
+  //
 
 
  //brew list from snapshot
@@ -19,13 +22,25 @@ class DatabaseService{
        doc.data['Mail'] ?? '', 
        doc.data['Address'] ?? '', 
        doc.data['Social_reason'] ?? '',
-       doc.data['Activity'] ?? '',  
+       doc.data['Activity'] ?? '',
+ 
      );
    }).toList();
  }
+
+
   //get prospect stream
   Stream<List<Prospect>> get prospect {
     return prospectCollection.snapshots()
     .map(_prospectListFromSnapshot);  
     }
+
+
+
+    /*
+    Stream<QuerySnapshot> get location {
+    return locationCollection.snapshots();
+   
+    }*/
+
 }

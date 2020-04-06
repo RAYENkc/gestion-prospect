@@ -1,50 +1,89 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
 
-class StoreMap extends StatelessWidget {
- /* const StoreMap ({
-    Key key,
-    @required this.documents,
-    @required this.initialPosition,
+class  StoreMap extends StatefulWidget {
 
-  }) : super(key: key);
-*/
-  
-GoogleMapController _controller;
 
-  
+  @override
+  _StoreMapState createState() => _StoreMapState();
+}
+
+class _StoreMapState extends State<StoreMap> {
+  GoogleMapController _controller;
+  Stream<QuerySnapshot> _locationStores;
+  bool mapToggle = false;
+  var currentLocation;
+
+
+
+  @override
+  void initState(){
+    super.initState();
+       Geolocator().getCurrentPosition().then((currloc){
+      setState(() {
+        currentLocation = currloc;
+        mapToggle = true;
+       
+
+      });
+      });
+    _locationStores = Firestore.instance
+    .collection('Geolocation')
+    .snapshots();
+    
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-       children: <Widget>[
-          GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(36.74750639709461, 9.968049640625004),
-          
-          ),
-           onMapCreated:(GoogleMapController controller) {
-            _controller = controller;
-          },
-        myLocationEnabled: true,
-      /*   markers: DocumentSnapshot.map((document)=> Marker(
-           markerId: MarkerId(document['prospectid']),
-           icon: BitmapDescriptor.defaultMarkerWithHue(_pinkHue),
-           position: LatLng(
-             document['location'].latitude, 
-             document['location'].longitude
-             ),
-             infoWindow: InfoWindow(
-               title: document['firest_name'],
-               snippet: document['address'],
-             ),
+   // List<DocumentSnapshot> documents;
+    return Stack( 
+        children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+        stream: _locationStores,
+        builder: (context , snapshot) {
+       final documents = snapshot.data.documents;
+       
+        
 
-         )),*/
-      ),
-     
-       ],
+         
+        return    GoogleMap(
+                initialCameraPosition:  CameraPosition(
+                  target: LatLng(36.5735526,10.8564992),
+                  zoom: 10),
+                   onMapCreated:(GoogleMapController controller) {
+                       _controller = controller;
+         
+                       },
+      markers: documents
+         .map((document)=> Marker(
+             markerId: MarkerId(currentLocation.toString()),
+             icon: BitmapDescriptor.defaultMarker,
+             position: LatLng(
+               document['location'].latitude, 
+               document['location'].longitude,
+               ),
+             /*  infoWindow: InfoWindow(
+                 title: Text('bien'),
+                 // document['adresss'],
+                // snippet: document['address'],
+               ),*/
+        ),
+         ).toSet(),
+
+
+
+          );
+       }
+       )
+         
+
+        ],
+
     );
+  
   }
-   
-
 }

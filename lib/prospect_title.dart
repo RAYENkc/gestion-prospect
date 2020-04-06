@@ -12,7 +12,12 @@ class ProspectTitle extends StatelessWidget {
       padding: EdgeInsets.only(top: 8.0),
      
         child: ListTile(
-          title: Text(prospect.First_name),
+          title: Text(prospect.First_name,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          )
+          ),
           subtitle: Text(prospect.Mail),
         ),
     );
